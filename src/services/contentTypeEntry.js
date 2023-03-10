@@ -24,6 +24,9 @@ const getContentTypeEntryService = async (entryId) => {
 
 const editContentTypeEntryService = async (details) => {
   const entryDetails=await db.content_type_entries.findOne({where:{id:details.id}});
+  if(!entryDetails){
+    throw new Error('entry does not exist');
+  }
   let jsonObj=JSON.parse( entryDetails.values);
   jsonObj[details.attribute]=details.value;
   const newObj=JSON.stringify(jsonObj);
