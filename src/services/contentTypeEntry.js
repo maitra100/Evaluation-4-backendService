@@ -27,7 +27,7 @@ const editContentTypeEntryService = async (details) => {
   if(!entryDetails){
     throw new Error('entry does not exist');
   }
-  let jsonObj=JSON.parse( entryDetails.values);
+  let jsonObj=JSON.parse(entryDetails.values);
   jsonObj[details.attribute]=details.value;
   const newObj=JSON.stringify(jsonObj);
   return await db.content_type_entries.update({values:newObj},{where:{id:details.id}});

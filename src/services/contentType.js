@@ -6,6 +6,7 @@ const addContentTypeService=async(details)=>{
     throw new Error('content type already exists');
   }
   const response=await db.content_types.create({name:details.name,attributes:[]});
+  console.log(response);
   return response;
 };
 
@@ -32,6 +33,9 @@ const addAttributeService=async(details)=>{
 
 const deleteAttributeService=async(id,attribute)=>{
   const contentType=await db.content_types.findOne({where:{id:id}});
+  if(!contentType){
+    throw new Error('content type does not exist');
+  }
   let newAttributes=contentType.attributes;
   newAttributes=newAttributes.filter((attributes)=>attributes!==attribute);
   const response=await db.content_types.update({attributes:newAttributes},{where:{id:id}});
