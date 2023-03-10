@@ -1,12 +1,19 @@
 const db=require('../../database/models');
 
 const addContentTypeService=async(details)=>{
+  const contentType=await db.content_types.findOne({where:{name:details.name}});
+  if(contentType){
+    throw new Error('content type already exists');
+  }
   const response=await db.content_types.create({name:details.name,attributes:[]});
   return response;
 };
 
 const addAttributeService=async(details)=>{
   const contentType=await db.content_types.findOne({where:{name:details.name}});
+  if(!contentType){
+    throw new Error('content type does not exist');
+  }
   let newAttributes=contentType.attributes;
   newAttributes=[...newAttributes,details.attribute];
   const response=await db.content_types.update({attributes:newAttributes},{where:{name:details.name}});
@@ -43,6 +50,9 @@ const deleteAttributeService=async(id,attribute)=>{
 
 const updateAttributeService=async(details)=>{
   const contentType=await db.content_types.findOne({where:{name:details.name}});
+  if(!contentType){
+    throw new Error('content type does not exist');
+  }
   const entries=await db.content_type_entries.findAll({where:{contentTypeId:contentType.id}});
   if(entries.length!==0){
     throw new Error('Cannot update attribute as entries already exist');
@@ -66,6 +76,8 @@ const getContentTypeService=async()=>{
 
 const getSpecificContentTypeService=async(name)=>{
   const response=await db.content_types.findOne({where:{name:name}});
+  if(!response)
+    throw new Error('content type does not exist');
   return response;
 
 };

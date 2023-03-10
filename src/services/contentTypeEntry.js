@@ -2,6 +2,9 @@ const db=require('../../database/models');
 
 const addContentTypeEntryService = async (details) => {
   const contentType=await db.content_types.findOne({where:{name:details.name}});
+  if(!contentType){
+    throw new Error('content type does not exist');
+  }
   const attributes=contentType.attributes;
   const value=details.values;
   let entryData = {};
