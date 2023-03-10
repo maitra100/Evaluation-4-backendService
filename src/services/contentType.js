@@ -23,16 +23,16 @@ const addAttributeService=async(details)=>{
   return response;
 };
 
-const deleteAttributeService=async(details)=>{
-  const contentType=await db.content_types.findOne({where:{name:details.name}});
+const deleteAttributeService=async(id,attribute)=>{
+  const contentType=await db.content_types.findOne({where:{id:id}});
   let newAttributes=contentType.attributes;
-  newAttributes=newAttributes.filter((attribute)=>attribute!==details.attribute);
-  const response=await db.content_types.update({attributes:newAttributes},{where:{name:details.name}});
+  newAttributes=newAttributes.filter((attributes)=>attributes!==attribute);
+  const response=await db.content_types.update({attributes:newAttributes},{where:{id:id}});
   db.content_type_entries.findAll({where:{contentTypeId:contentType.id}}).then((entry)=>{
     if(entry.length>0){
       for(let index=0;index<entry.length;index++){
         let jsonObj=JSON.parse(entry[index].values);
-        delete jsonObj[details.attribute];
+        delete jsonObj[attribute];
         const newValues=JSON.stringify(jsonObj);
         entry[index].update({values:newValues},{where:{contentTypeId:contentType.id}}).then(user=>console.log(user));
       }
@@ -71,7 +71,7 @@ const getSpecificContentTypeService=async(name)=>{
 };
 
 const editContentTypeNameService=async(details)=>{
-  const response=await db.content_types.update({name:details.newName},{where:{name:details.oldName}});
+  const response=await db.content_types.update({name:details.newName},{where:{id:details.id}});
   return response;
 };
 

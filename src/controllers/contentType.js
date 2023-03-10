@@ -3,7 +3,7 @@ const contentTypeServices=require('../services/contentType');
 const addContentType=async (req,res)=>{
   try{
     const response=await contentTypeServices.addContentTypeService(req.body);
-    res.status(200).json(response);
+    res.json(response);
   }
   catch(e){
     res.status(400).send(e.message);
@@ -22,7 +22,7 @@ const addAttribute=async (req,res)=>{
 
 const deleteAttribute=async (req,res)=>{
   try{
-    const response=await contentTypeServices.deleteAttributeService(req.body);
+    const response=await contentTypeServices.deleteAttributeService(req.params.id,req.params.attribute);
     res.status(200).json('attribute deleted successfully');
   }
   catch(e){
@@ -63,10 +63,10 @@ const getSpecificContentType=async (req,res)=>{
 const editContentTypeName=async (req,res)=>{
   try{
     const response=await contentTypeServices.editContentTypeNameService(req.body);
-    res.status(200).json(response);
+    res.send(response);
   }
   catch(e){
-    res.status(400).send(e.message);
+    res.send(e.message);
   }
 };
 

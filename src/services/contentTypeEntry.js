@@ -15,7 +15,7 @@ const addContentTypeEntryService = async (details) => {
 };
 
 const getContentTypeEntryService = async (entryId) => {
-  const entries=await db.content_type_entries.findOne({where:{id:entryId}});
+  const entries=await db.content_type_entries.findAll({where:{contentTypeId:entryId}});
   return entries;
 };
 

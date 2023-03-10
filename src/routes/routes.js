@@ -5,7 +5,7 @@ const contentTypeEntryCoontroller=require('../controllers/contentTypeEntry');
 
 route.post('/content-type',contentTypeController.addContentType);
 route.put('/add-attribute',contentTypeController.addAttribute);
-route.delete('/delete-attribute',contentTypeController.deleteAttribute);
+route.delete('/delete-attribute/:id/:attribute',contentTypeController.deleteAttribute);
 route.put('/update-attribute',contentTypeController.updateAttribute);
 route.get('/content-type',contentTypeController.getContentType);
 route.get('/content-type/:name',contentTypeController.getSpecificContentType);

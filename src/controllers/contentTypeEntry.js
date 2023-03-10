@@ -2,7 +2,7 @@ const contentTypeEntryServices= require('../services/contentTypeEntry');
 const getContentTypeEntry = async (req, res) => {
   try {
     const response = await contentTypeEntryServices.getContentTypeEntryService(req.params.id);
-    res.status(200).json(response);
+    res.send(response);
   } catch (e) {
     res.status(400).send(e.message);
   }
