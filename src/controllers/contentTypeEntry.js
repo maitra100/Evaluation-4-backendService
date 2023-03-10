@@ -29,6 +29,9 @@ const editContentTypeEntry = async (req, res) => {
 const deleteContentTypeEntry = async (req, res) => {
   try {
     const response = await contentTypeEntryServices.deleteContentTypeEntryService(req.params.id);
+    if(response===0){
+      throw new Error('entry does not exist');
+    }
     res.status(200).send(response);
   } catch (e) {
     res.status(400).send(e.message);
