@@ -118,7 +118,7 @@ const validateDeleteContentTypeEntry=async(req,res,next)=>{
 const tokenValidator=async(req,res,next)=>{
   try{
     const token=req.headers.token;
-    await axios.post('http://localhost:8080/token/validate',{token});
+    await axios.post('http://auth-service:8080/token/validate',{token});
     next();
   }
   catch(err){
