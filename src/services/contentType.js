@@ -6,7 +6,6 @@ const addContentTypeService=async(details)=>{
     throw new Error('content type already exists');
   }
   const response=await db.content_types.create({name:details.name,attributes:[]});
-  console.log(response);
   return response;
 };
 
@@ -61,7 +60,6 @@ const updateAttributeService=async(details)=>{
   if(entries.length!==0){
     throw new Error('Cannot update attribute as entries already exist');
   }
-  console.log(contentType.dataValues);
   let newAttributes=contentType.dataValues.attributes;
   newAttributes=newAttributes.map((attribute)=>{
     if(attribute===details.oldAttribute){

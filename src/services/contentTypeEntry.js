@@ -11,7 +11,6 @@ const addContentTypeEntryService = async (details) => {
   for(let index=0;index<attributes.length;index++){
     entryData[attributes[index]]=value[index];
   }
-  console.log(entryData);
   entryData=JSON.stringify(entryData);
   const newEntry = await db.content_type_entries.create({contentTypeId:contentType.id,values:entryData});
   return newEntry;
