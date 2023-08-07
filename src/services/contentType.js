@@ -60,7 +60,7 @@ const updateAttributeService=async(details)=>{
   if(entries.length!==0){
     throw new Error('Cannot update attribute as entries already exist');
   }
-  let newAttributes=contentType.dataValues.attributes;
+  let newAttributes=contentType.attributes;
   newAttributes=newAttributes.map((attribute)=>{
     if(attribute===details.oldAttribute){
       return details.newAttribute;
